@@ -1,4 +1,5 @@
 import pandas as pd # J'importe pandas.
+import matplotlib.pyplot as plt # J'importe matpolib pour faire les graphiques.
 df = pd.read_csv('C:/Users/2476396/Downloads/vdq-arbrerepertorie.csv')  # J'introduit le fichier csv dans le projet
 # python.
 
@@ -77,3 +78,17 @@ print("")
 
 # GRAPHIQUES
 # Graphique 1:
+'''
+df_enleve_plus_5car = df[df["NOM_FRANCAIS"].str.len() <= 5]
+df_moins_5car = df_enleve_plus_20car["NOM_FRANCAIS"].unique()
+desc_df = df.describe()
+longueur = desc_df.loc["count"]
+
+plt.bar(df_moins_5car, longueur) 
+
+plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres aux noms les plus courts (<= 5 caractères)")
+plt.xlabel("Nombre d'arbres répertoriés")
+plt.ylabel("")
+plt.grid(axis='both', linestyle='--', linewidth=0.5)
+plt.show()
+'''

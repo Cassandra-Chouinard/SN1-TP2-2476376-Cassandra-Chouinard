@@ -70,25 +70,60 @@ def moyenne_tronc(df, type_arbre):  # Cette fonction affiche lla moyenne du diam
     # colonne "DIAMETRE" du tableau créé à la ligne précédente. Ici, nous cherchons vraiement la moyenne du diamètre,
     # donc "DIAMETRE" n'est pas interchangeable.
     return(moyenne_type)    # La fonction retourne la moyenne de diamètre des troncs d'un type d'arbre spécifique.
-print("Diamètre moyen du tronc des feuillus :", moyenne_tronc(df, "Feuillu"))   # J'imprime le diamètre moyen
+print("Diamètre moyen du tronc des feuillus :", round(moyenne_tronc(df, "Feuillu"), 1))   # J'imprime le diamètre moyen
 # du tronc pour les arbres de types feuillus.
-print("Diamètre moyen du tronc des conifères :", moyenne_tronc(df, "Conifère")) # J'imprime le diamètre moyen
+print("Diamètre moyen du tronc des conifères :", round(moyenne_tronc(df, "Conifère"), 1)) # J'imprime le diamètre moyen
 # du tronc pour les arbres de types conifères...
 print("")
 
 # GRAPHIQUES
 # Graphique 1:
-'''
 df_enleve_plus_5car = df[df["NOM_FRANCAIS"].str.len() <= 5]
-df_moins_5car = df_enleve_plus_20car["NOM_FRANCAIS"].unique()
-desc_df = df.describe()
-longueur = desc_df.loc["count"]
+df_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().unique() #***
 
-plt.bar(df_moins_5car, longueur) 
+nbr_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].value_counts().sort_index() #***
+'''
+plt.bar(df_moins_5car, nbr_moins_5car)
 
-plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres aux noms les plus courts (<= 5 caractères)")
-plt.xlabel("Nombre d'arbres répertoriés")
-plt.ylabel("")
+plt.xticks(rotation=45, ha='right')
+plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)") #***
+plt.xlabel("")
+plt.ylabel("Nombre d'arbres répertoriés")
 plt.grid(axis='both', linestyle='--', linewidth=0.5)
 plt.show()
+
+# Graphique 2:
+df_enleve_plus_5car.boxplot(column="DIAMETRE", by="NOM_FRANCAIS")
+plt.title("Diamètre du tronc des 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)")
+plt.suptitle("")  # Supprimer le titre autogénéré apparaisant en haut de notre titre (il indique le regroupement 
+# réalisé)
+plt.xlabel("Espèce d'arbre")
+plt.ylabel("Diamètre (cm)")
+plt.grid(axis='both', linestyle='--', linewidth=0.5)
+plt.show()
+
+# Graphique 3:
+df_feuillu = df[df["TYPE_ARBRE"] == "Feuillu"]
+df_conifere = df[df["TYPE_ARBRE"] == "Conifère"]
+
+plt.scatter(df_feuillu["LONGITUDE"], df_feuillu["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
+plt.scatter(df_conifere["LONGITUDE"], df_conifere["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+plt.title("Localisation et type des arbres répertoriés à la Ville de Québec")
+plt.grid(axis='both', linestyle='--', linewidth=0.5)
+plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère'])
+plt.show()
 '''
+# Graphique 4:
+df_feuillu = df[df["NOM_TOPOGRAPHIE"] == "Parc Gérard-Marchand"]
+df_conifere = df[df["TYPE_ARBRE"] == "Conifère"]
+
+plt.scatter(df_feuillu["LONGITUDE"], df_feuillu["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
+plt.scatter(df_conifere["LONGITUDE"], df_conifere["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+plt.title("Localisation et type des arbres répertoriés à la Ville de Québec")
+plt.grid(axis='both', linestyle='--', linewidth=0.5)
+plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère'])
+plt.show()

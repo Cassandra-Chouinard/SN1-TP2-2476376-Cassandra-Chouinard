@@ -79,14 +79,14 @@ print("")
 # GRAPHIQUES
 # Graphique 1:
 df_enleve_plus_5car = df[df["NOM_FRANCAIS"].str.len() <= 5]
-df_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().unique() #***
+df_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().unique()
 
 nbr_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].value_counts().sort_index() #***
 '''
 plt.bar(df_moins_5car, nbr_moins_5car)
 
 plt.xticks(rotation=45, ha='right')
-plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)") #***
+plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)") 
 plt.xlabel("")
 plt.ylabel("Nombre d'arbres répertoriés")
 plt.grid(axis='both', linestyle='--', linewidth=0.5)
@@ -116,10 +116,10 @@ plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère']
 plt.show()
 '''
 # Graphique 4:
-df_feuillu = df[df["NOM_TOPOGRAPHIE"] == "Parc Gérard-Marchand"]
+df_parc_gerard_marchand = df[df["NOM_TOPOGRAPHIE"] == "Parc de la Chaudière"]
 df_conifere = df[df["TYPE_ARBRE"] == "Conifère"]
 
-plt.scatter(df_feuillu["LONGITUDE"], df_feuillu["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
+plt.scatter(df_parc_gerard_marchand["LONGITUDE"], df_parc_gerard_marchand["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
 plt.scatter(df_conifere["LONGITUDE"], df_conifere["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
 plt.xlabel("Longitude")
 plt.ylabel("Latitude")

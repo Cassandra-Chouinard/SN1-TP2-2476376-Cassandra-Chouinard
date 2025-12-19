@@ -2,7 +2,7 @@ import pandas as pd # J'importe pandas.
 import matplotlib.pyplot as plt # J'importe matpolib pour faire les graphiques.
 df = pd.read_csv('C:/Users/2476396/Downloads/vdq-arbrerepertorie.csv')  # J'introduit le fichier csv dans le projet
 # python.
-
+'''
 # QUESTIONS
 # Question 1:
 # Quelles sont les variables présentes dans le jeu de données?
@@ -70,24 +70,29 @@ def moyenne_tronc(df, type_arbre):  # Cette fonction affiche lla moyenne du diam
     # colonne "DIAMETRE" du tableau créé à la ligne précédente. Ici, nous cherchons vraiement la moyenne du diamètre,
     # donc "DIAMETRE" n'est pas interchangeable.
     return(moyenne_type)    # La fonction retourne la moyenne de diamètre des troncs d'un type d'arbre spécifique.
-print("Diamètre moyen du tronc des feuillus :", round(moyenne_tronc(df, "Feuillu"), 1))   # J'imprime le diamètre moyen
-# du tronc pour les arbres de types feuillus.
-print("Diamètre moyen du tronc des conifères :", round(moyenne_tronc(df, "Conifère"), 1)) # J'imprime le diamètre moyen
-# du tronc pour les arbres de types conifères...
+print("Diamètre moyen du tronc des feuillus :", round(moyenne_tronc(df, "Feuillu"), 1))   # J'imprime le
+# diamètre moyen du tronc pour les arbres de types feuillus.
+print("Diamètre moyen du tronc des conifères :", round(moyenne_tronc(df, "Conifère"), 1)) # J'imprime le
+# diamètre moyen du tronc pour les arbres de types conifères...
 print("")
 
 # GRAPHIQUES
 # Graphique 1:
-df_enleve_plus_5car = df[df["NOM_FRANCAIS"].str.len() <= 5] # Je créé un nouveau df qui contient seulement les espèces d'arbres dont les noms en français ne dépasse pas 5 caractères.
-df_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().unique() # Je garde le nom des arbres avec des noms de moins de 5 caractères pour qu'ils n'apparaissent qu'une seule fois par type d'arbre et je les mets en ordre alphabétique.
+df_enleve_plus_5car = df[df["NOM_FRANCAIS"].str.len() <= 5] # Je créé un nouveau df qui contient seulement les espèces
+# d'arbres dont les noms en français ne dépasse pas 5 caractères.
+df_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().unique() # Je garde le nom des arbres avec des noms de
+# moins de 5 caractères pour qu'ils n'apparaissent qu'une seule fois par type d'arbre et je les mets en ordre
+# alphabétique.
 
 nbr_moins_5car = df_enleve_plus_5car["NOM_FRANCAIS"].sort_values().sort_index() #***
 
 def graphique_1():  # Je définis la fonction qui montrera le premier graphique.
-    plt.bar(df_moins_5car, nbr_moins_5car)  # Je fais un graphique de diagramme à bars verticales avec le nombre d'espèce d'arbre en y et leurs noms en x.
+    plt.bar(df_moins_5car, nbr_moins_5car)  # Je fais un graphique de diagramme à bars verticales avec le nombre
+    # d'espèce d'arbre en y et leurs noms en x.
 
     plt.xticks(rotation=45, ha='right') # Je tourne le nom des arbres à 45 degrés.
-    plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)") # Voici le titre du graphique. \n permet de diviser le titre en deux pour qu'il rentre dans le graphique.
+    plt.title("Nombre d'arbres répertoriés pour les 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)")
+    # Voici le titre du graphique. \n permet de diviser le titre en deux pour qu'il rentre dans le graphique.
     plt.xlabel("")  # Voici le titre de l'axe des x. Ici, il n'y en a pas.
     plt.ylabel("Nombre d'arbres répertoriés")   # Voici le titre de l'axe des y.
     plt.grid(axis='y', linestyle='--', linewidth=0.5)   # J'active le grid mais seulement pour l'axe des y.
@@ -95,21 +100,27 @@ def graphique_1():  # Je définis la fonction qui montrera le premier graphique.
 
 # Graphique 2:
 def graphique_2():  # Voici la fonction du deuxième graphique.
-    df_enleve_plus_5car.boxplot(column="DIAMETRE", by="NOM_FRANCAIS")   # Je fais un graphique de type boxplot avec le diamètre des arbres en cm sur l'axe des y et le nom des espèces d'arbres en x.
-    plt.title("Diamètre du tronc des 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)")    # Voici le titre du graphique.
+    df_enleve_plus_5car.boxplot(column="DIAMETRE", by="NOM_FRANCAIS")   # Je fais un graphique de type boxplot avec le
+    # diamètre des arbres en cm sur l'axe des y et le nom des espèces d'arbres en x.
+    plt.title("Diamètre du tronc des 10 espèces d'arbres \n aux noms les plus courts (<= 5 caractères)")    # Voici le
+    # titre du graphique.
     plt.suptitle("")  # Supprimer le titre autogénéré apparaisant en haut de notre titre (il indique le regroupement
     # réalisé)
     plt.xlabel("Espèce d'arbre")    # Voici le titre de l'axe des x.
     plt.xticks(rotation=45, ha='right') # Je tourne le nom des arbres à 45 degrés.
     plt.ylabel("Diamètre (cm)") # Voici le titre de l'axe des y.
-    plt.grid(False) # J'enlève le grid de l'axe des x, parce que la fonction boxplot active automatiquement le grid des 2 axes.
-    plt.grid(axis='y', linestyle='--', linewidth=0.5)   # Je remet manuellement le grid, mais seulement pour l'axe des y.
+    plt.grid(False) # J'enlève le grid de l'axe des x, parce que la fonction boxplot active automatiquement le grid des
+    # 2 axes.
+    plt.grid(axis='y', linestyle='--', linewidth=0.5)   # Je remet manuellement le grid, mais seulement pour l'axe des
+    # y.
     plt.show()  # À changer pour méthode plt.savefig("...")
 
 # Graphique 3:
 def graphique_3():
-    df_feuillu = df[df["TYPE_ARBRE"] == "Feuillu"]  # Je fais un nouveau df ne contenant que les arbres de types feuillus.
-    df_conifere = df[df["TYPE_ARBRE"] == "Conifère"]    # Je fais un nouveau df ne contenant que les arbres de types conifères.
+    df_feuillu = df[df["TYPE_ARBRE"] == "Feuillu"]  # Je fais un nouveau df ne contenant que les arbres de types
+    # feuillus.
+    df_conifere = df[df["TYPE_ARBRE"] == "Conifère"]    # Je fais un nouveau df ne contenant que les arbres de types
+    # conifères.
 
     plt.scatter(df_feuillu["LONGITUDE"], df_feuillu["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
     plt.scatter(df_conifere["LONGITUDE"], df_conifere["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
@@ -117,20 +128,36 @@ def graphique_3():
     plt.ylabel("Latitude")  # Voici le titre de l'axe des y.
     plt.title("Localisation et type des arbres répertoriés à la Ville de Québec")   # Voici le titre du graphique.
     plt.grid(axis='both', linestyle='--', linewidth=0.5)    # J'active le grid pour les deux axes cette fois.
-    plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère'])    # Je configure le nom de chaque couleur dans la légende.
+    plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère'])    # Je configure le nom de chaque
+    # couleur dans la légende.
     plt.show()  # À changer pour méthode plt.savefig("...")
-
+'''
 # Graphique 4:
-def graphique_4():
-    df_parc_gerard_marchand = df[df["NOM_TOPOGRAPHIE"] == "Parc de la Chaudière"]
+df_parc_chaudiere = df[df["NOM_TOPOGRAPHIE"] == "Parc de la Chaudière"]
+#print(df_parc_chaudiere.head(), len(df_parc_chaudiere))
+df_espece = (df_parc_chaudiere["NOM_FRANCAIS"].unique())
+print(df_espece[0])
+#x = 0
+df_parc_chaudiere_espece = df_parc_chaudiere[df["NOM_FRANCAIS"] == df_espece[0]]
+print(df_parc_chaudiere_espece)
+df_pce_simplifier =
 
-    plt.scatter(df_parc_gerard_marchand["LONGITUDE"], df_parc_gerard_marchand["LATITUDE"], s=0.01, alpha=0.5) # s = taille des points
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
-    plt.title("Localisation et type des arbres répertoriés à la Ville de Québec")
-    plt.grid(axis='both', linestyle='--', linewidth=0.5)
-    plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu', 'Conifère'])
-    plt.show()  # À changer pour méthode plt.savefig("...")
 
-graphique_1()
-graphique_3()
+
+'''
+for element in df_parc_chaudiere:
+    df_parc_chaudiere_espece = df_parc_chaudiere[df["NOM_FRANCAIS"] == df_espece[x]]
+    plt.scatter(df_parc_chaudiere_espece["LONGITUDE"], df_parc_chaudiere_espece["LATITUDE"], s=0.01, alpha=0.5) # s =
+    # taille des points
+    x += 1
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+plt.title("Localisation et espèces des arbres répertoriés dans le Parc de la Chaudière")
+plt.grid(axis='both', linestyle='--', linewidth=0.5)
+plt.legend(title="Type d'arbre", markerscale=50, labels=['Feuillu'])
+plt.show()  # À changer pour méthode plt.savefig("...")
+'''
+#graphique_1()
+#graphique_2()
+#graphique_3()
+#graphique_4()
